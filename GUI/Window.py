@@ -10,7 +10,7 @@ class Window():
         self.current_condition = 0
         self.screen_size = (420, 470)
         self.screen = pygame.display.set_mode(self.screen_size)
-        self.bg_game_screen = pygame.image.load('Core/board.png')
+        self.bg_game_screen = pygame.image.load('board.png')
         self.game = None
         self.winner_color = None
 
@@ -47,20 +47,29 @@ class Window():
         mouse_is_pressed = pygame.mouse.get_pressed()
         if mouse_is_pressed[0]:
             if 25 <= mouse_pos[0] <= 395 and 25 <= mouse_pos[1] <= 395:
-                winner = self.game.make_move()
+                winner = self.game.make_move(mouse_pos)
                 if winner is not None:
                     self.winner_color = winner
                     self.current_condition = 2
-
+                if self.game.chips_count == 224:
+                    self.current_condition = 2
 
     def gameover(self):
-        pass
+        self.return_default_settings()
+        if self.winner_color is not None:
+            self.print_text("is Winner", (self.screen_size[0] // 2 - 40, self.screen_size[1] // 2 - 10), 34)
+            pygame.draw.circle(self.screen, self.winner_color, (self.screen_size[0] // 2 - 70,
+                                                             self.screen_size[1] // 2), 20)
+        else:
+            self.print_text("Draw", (self.screen_size[0] // 2 - 40, self.screen_size[1] // 2 - 10), 34)
+        self.print_text("M - menu", (10, self.screen_size[1] - 40), 34)
+        if pygame.key.get_pressed()[pygame.K_m]:
+            self.current_condition = 0
 
     def return_default_settings(self):
         surface = pygame.Surface((420, 470))
         surface.fill((255, 165, 0))
         self.screen.blit(surface, (0, 0))
-        self.color = (0, 0, 0)
 
     def print_text(self, message, position, font):
         text_stile = pygame.font.Font(None, font)
@@ -68,4 +77,7 @@ class Window():
         self.screen.blit(text, position)
 
     def update_screen(self):
-        pass
+        for x in range(self.game.map.width):
+            for y in range(self.game.map.height):
+                if self.game.map.map[x][y]:
+                    self.game.map.map[x][y].draw_chip(self.screen)
