@@ -10,7 +10,17 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8f8e42c6-8112-49e2-8c52-f68944093634" name="Default Changelist" comment="" />
+    <list default="true" id="8f8e42c6-8112-49e2-8c52-f68944093634" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.pre-commit-config.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GAME/Bot.py" beforeDir="false" afterPath="$PROJECT_DIR$/GAME/Bot.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GAME/Game.py" beforeDir="false" afterPath="$PROJECT_DIR$/GAME/Game.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GAME/Map.py" beforeDir="false" afterPath="$PROJECT_DIR$/GAME/Map.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GAME/Player.py" beforeDir="false" afterPath="$PROJECT_DIR$/GAME/Player.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GUI/Chip.py" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/Chip.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GUI/Window.py" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/Window.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -96,22 +106,22 @@
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
   </component>
   <component name="WindowStateProjectService">
-    <state width="1345" height="31" key="GridCell.Tab.0.bottom" timestamp="1604655089773">
+    <state width="1345" height="175" key="GridCell.Tab.0.bottom" timestamp="1604685134102">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
-    <state width="1345" height="31" key="GridCell.Tab.0.bottom/0.0.1366.738@0.0.1366.738" timestamp="1604655089773" />
-    <state width="1345" height="31" key="GridCell.Tab.0.center" timestamp="1604655089773">
+    <state width="1345" height="175" key="GridCell.Tab.0.bottom/0.0.1366.738@0.0.1366.738" timestamp="1604685134102" />
+    <state width="1345" height="175" key="GridCell.Tab.0.center" timestamp="1604685134102">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
-    <state width="1345" height="31" key="GridCell.Tab.0.center/0.0.1366.738@0.0.1366.738" timestamp="1604655089773" />
-    <state width="1345" height="31" key="GridCell.Tab.0.left" timestamp="1604655089773">
+    <state width="1345" height="175" key="GridCell.Tab.0.center/0.0.1366.738@0.0.1366.738" timestamp="1604685134102" />
+    <state width="1345" height="175" key="GridCell.Tab.0.left" timestamp="1604685134101">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
-    <state width="1345" height="31" key="GridCell.Tab.0.left/0.0.1366.738@0.0.1366.738" timestamp="1604655089773" />
-    <state width="1345" height="31" key="GridCell.Tab.0.right" timestamp="1604655089773">
+    <state width="1345" height="175" key="GridCell.Tab.0.left/0.0.1366.738@0.0.1366.738" timestamp="1604685134101" />
+    <state width="1345" height="175" key="GridCell.Tab.0.right" timestamp="1604685134102">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
-    <state width="1345" height="31" key="GridCell.Tab.0.right/0.0.1366.738@0.0.1366.738" timestamp="1604655089773" />
+    <state width="1345" height="175" key="GridCell.Tab.0.right/0.0.1366.738@0.0.1366.738" timestamp="1604685134102" />
     <state x="346" y="59" width="672" height="678" key="search.everywhere.popup" timestamp="1604409855645">
       <screen x="0" y="0" width="1366" height="738" />
     </state>

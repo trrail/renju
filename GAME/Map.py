@@ -42,6 +42,11 @@ class Map():
                 length, x2_dir, y2_dir, inverse_dir)
         return length
 
+    def point_is_free(self, position):
+        if self.map[position[0]][position[1]] is None:
+            return True
+        return False
+
     @staticmethod
     def _increment_coordinates(length, x, y, direction):
         length += 1

@@ -44,7 +44,16 @@ class Window():
         if pygame.key.get_pressed()[pygame.K_m]:
             self.current_condition = 0
         mouse_pos = pygame.mouse.get_pos()
-        mouse_is_pressed = pygame.mouse.get_pressed()
+        mouse_is_pressed = pygame.mouse.get_pressed(3)[0]
+        pos = self.game.take_pos()
+        if mouse_is_pressed:
+            if pos is None and self.mouse_click_is_correct(mouse_pos):
+                self.winner_color = self.game.make_move(self.define_position(mouse_pos))
+        if pos is not None:
+            self.winner_color = self.game.make_move(pos)
+        if self.winner_color is not None or self.game.chips_count == 225:
+            self.current_condition = 2
+        '''
         if mouse_is_pressed[0]:
             if 25 <= mouse_pos[0] <= 395 and 25 <= mouse_pos[1] <= 395:
                 winner = self.game.make_move(mouse_pos)
@@ -53,17 +62,18 @@ class Window():
                     self.current_condition = 2
                 if self.game.chips_count == 225:
                     self.current_condition = 2
+                    '''
 
     def gameover(self):
         self.return_default_settings()
         if self.winner_color is not None:
             self.print_text("is Winner", (self.screen_size[0] // 2 - 40, self.screen_size[1] // 2 - 10), 34)
-            pygame.draw.circle(self.screen, self.winner_color, (self.screen_size[0] // 2 - 70,
-                                                             self.screen_size[1] // 2), 20)
+            pygame.draw.circle(self.screen, self.winner_color, (self.screen_size[0] // 2 - 70, self.screen_size[1] // 2), 20)
         elif self.winner_color is None:
             self.print_text("Draw", (self.screen_size[0] // 2 - 40, self.screen_size[1] // 2 - 10), 34)
         self.print_text("M - menu", (10, self.screen_size[1] - 40), 34)
         if pygame.key.get_pressed()[pygame.K_m]:
+            self.winner_color = None
             self.current_condition = 0
 
     def return_default_settings(self):
@@ -81,3 +91,20 @@ class Window():
             for y in range(self.game.map.height):
                 if self.game.map.map[x][y]:
                     self.game.map.map[x][y].draw_chip(self.screen)
+
+    @staticmethod
+    def define_position(mouse_pos):
+        # При нажатии мыши определяет текущее положение на игровой карте
+        x_whole = (mouse_pos[0] - 9) // 25 - 1
+        x_residue = (mouse_pos[0] - 9) % 25
+        y_whole = (mouse_pos[1] - 9) // 25 - 1
+        y_residue = (mouse_pos[1] - 9) % 25
+        x_pos = x_whole if x_residue < 12 else x_whole + 1
+        y_pos = y_whole if y_residue < 12 else y_whole + 1
+        return x_pos, y_pos
+
+    @staticmethod
+    def mouse_click_is_correct(mouse_position):
+        if 25 <= mouse_position[0] <= 395 and 25 <= mouse_position[1] <= 395:
+            return True
+        return False

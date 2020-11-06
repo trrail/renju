@@ -3,4 +3,4 @@ class Player():
         self.color = color
 
     def make_move(self):
-        pass
+        return None
