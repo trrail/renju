@@ -16,12 +16,12 @@ class Window():
 
     def start(self):
         pygame.init()
-        open = True
-        while open:
+        window_is_open = True
+        while window_is_open:
             self.conditions[self.current_condition]()
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
-                    open = False
+                    window_is_open = False
             pygame.display.update()
         pygame.quit()
 
@@ -51,7 +51,7 @@ class Window():
                 if winner is not None:
                     self.winner_color = winner
                     self.current_condition = 2
-                if self.game.chips_count == 224:
+                if self.game.chips_count == 225:
                     self.current_condition = 2
 
     def gameover(self):
@@ -60,7 +60,7 @@ class Window():
             self.print_text("is Winner", (self.screen_size[0] // 2 - 40, self.screen_size[1] // 2 - 10), 34)
             pygame.draw.circle(self.screen, self.winner_color, (self.screen_size[0] // 2 - 70,
                                                              self.screen_size[1] // 2), 20)
-        else:
+        elif self.winner_color is None:
             self.print_text("Draw", (self.screen_size[0] // 2 - 40, self.screen_size[1] // 2 - 10), 34)
         self.print_text("M - menu", (10, self.screen_size[1] - 40), 34)
         if pygame.key.get_pressed()[pygame.K_m]:

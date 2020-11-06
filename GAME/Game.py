@@ -21,9 +21,9 @@ class Game():
                 return self.players[self.current_player].color
             self.current_player = (self.current_player + 1) % len(self.players)
             self.chips_count += 1
+            if self.chips_count == 225:
+                return None
             if self.is_bot:
-                if self.chips_count == 224:
-                    return None
                 bot_move_pos = self.players[self.current_player].make_move()
                 while self.map.map[bot_move_pos[0]][bot_move_pos[1]] is not None:
                     bot_move_pos = self.players[self.current_player].make_move()

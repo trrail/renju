@@ -25,21 +25,21 @@ class Map():
         return condition
 
     def check_winner(self, x, y, direction, color, length):
-        dir_x_first = direction[0]
-        dir_y_first = direction[1]
-        dir_x_second = -direction[0]
-        dir_y_second = -direction[1]
+        x1_dir = direction[0]
+        y1_dir = direction[1]
+        x2_dir = -direction[0]
+        y2_dir = -direction[1]
         inverse_dir = (-direction[0], -direction[1])
-        while not self.get_condition(x + dir_x_first, y + dir_y_first) and \
-                self.map[x + dir_x_first][y + dir_y_first] is not None \
-                and self.map[x + dir_x_first][y + dir_y_first].color == color:
-            length, dir_x_first, dir_y_first = self._increment_coordinates(
-                length, dir_x_first, dir_y_first, direction)
-        while not self.get_condition(x + dir_x_second, y + dir_y_second) and \
-                self.map[x + dir_x_second][y + dir_y_second] is not None \
-                and self.map[x + dir_x_second][y + dir_y_second].color == color:
-            length, dir_x_second, dir_y_second = self._increment_coordinates(
-                length, dir_x_second, dir_y_second, inverse_dir)
+        while not self.get_condition(x + x1_dir, y + y1_dir) and \
+                self.map[x + x1_dir][y + y1_dir] is not None \
+                and self.map[x + x1_dir][y + y1_dir].color == color:
+            length, x1_dir, y1_dir = self._increment_coordinates(
+                length, x1_dir, y1_dir, direction)
+        while not self.get_condition(x + x2_dir, y + y2_dir) and \
+                self.map[x + x2_dir][y + y2_dir] is not None \
+                and self.map[x + x2_dir][y + y2_dir].color == color:
+            length, x2_dir, y2_dir = self._increment_coordinates(
+                length, x2_dir, y2_dir, inverse_dir)
         return length
 
     @staticmethod
