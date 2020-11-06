@@ -1,9 +1,9 @@
-from GAME import Player
+from game import player
 import random
 
 
-class Bot(Player.Player):
-    def make_move(self):
+class Bot(player.Player):
+    def make_move(self) -> tuple:
         x = random.randint(0, 14)
         y = random.randint(0, 14)
         return x, y

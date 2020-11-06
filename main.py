@@ -1,6 +1,6 @@
-from GUI import Window
+from gui import window
 
 if __name__ == "__main__":
-    window = Window.Window()
+    window = window.Window()
     window.start()
 
