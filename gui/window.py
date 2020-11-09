@@ -5,7 +5,7 @@ from game import game
 class Window:
     def __init__(self):
         self.current_condition = self.open_menu
-        self.screen_size = (420, 470)
+        self.screen_size = (700, 470)
         self.screen = pygame.display.set_mode(self.screen_size)
         self.bg_game_screen = pygame.image.load('resources/board.png')
         self.game = None
@@ -23,7 +23,7 @@ class Window:
         pygame.quit()
 
     def open_menu(self) -> None:
-        self.return_default_settings()
+        self.reset_settings()
         self.print_text("Renju", (18, 25), 70)
         self.print_text("P - 2 players", (10, self.screen_size[1] / 2 + 30), 34)
         self.print_text("B - bot", (10, self.screen_size[1] / 2), 34)
@@ -34,8 +34,12 @@ class Window:
             self.game = game.Game(True)
             self.current_condition = self.game_window
 
+    def select_player_menu(self) -> None:
+        self.reset_settings()
+
     def game_window(self) -> None:
-        self.screen.blit(self.bg_game_screen, (0, 0))
+        self.prepare_game_screen()
+        self.print_moves()
         self.update_screen()
         self.print_text("M - menu", (10, self.screen_size[1] - 35), 34)
         if pygame.key.get_pressed()[pygame.K_m]:
@@ -52,7 +56,7 @@ class Window:
             self.current_condition = self.game_over
 
     def game_over(self) -> None:
-        self.return_default_settings()
+        self.reset_settings()
         if self.winner_color is not None:
             self.print_text("is Winner", (self.screen_size[0] // 2 - 40, self.screen_size[1] // 2 - 10), 34)
             pygame.draw.circle(self.screen, self.winner_color,
@@ -64,10 +68,16 @@ class Window:
             self.winner_color = None
             self.current_condition = self.open_menu
 
-    def return_default_settings(self) -> None:
-        surface = pygame.Surface((420, 470))
+    def reset_settings(self) -> None:
+        surface = pygame.Surface(self.screen_size)
         surface.fill((255, 165, 0))
         self.screen.blit(surface, (0, 0))
+
+    def prepare_game_screen(self):
+        self.screen.blit(self.bg_game_screen, (0, 0))
+        surface = pygame.Surface((280, 420))
+        surface.fill((128, 128, 128))
+        self.screen.blit(surface, (420, 0))
 
     def print_text(self, message: str, position: tuple, font: int) -> None:
         text_stile = pygame.font.Font(None, font)
@@ -96,3 +106,14 @@ class Window:
         if 25 <= mouse_position[0] <= 395 and 25 <= mouse_position[1] <= 395:
             return True
         return False
+
+    def print_moves(self) -> None:
+        x_pos = 475
+        y_pos = 10
+        for move in self.game.moves:
+            pygame.draw.circle(self.screen, move[0], (457, y_pos + 6), 10)
+            self.print_text('поставил(-ла) в клетку (' + str(move[1][0]) + ', ' + str(move[1][1]) + ')',
+                            (x_pos, y_pos), 23)
+            self.print_text(str(move[2]) + '.', (425, y_pos), 23)
+            y_pos += 30
+

@@ -12,6 +12,7 @@ class Game:
         self.is_bot = is_bot
         self.chips_count = 0
         self.current_player = 0
+        self.moves = []
 
     def take_pos(self):
         # Вернёт:
@@ -25,6 +26,7 @@ class Game:
             self.current_player = (self.current_player + 1) % len(self.players)
             self.map.put_chip(color, position)
             self.chips_count += 1
+            self.add_move_in_stat(color, position)
             return self.check_winner(position, color)
 
     def check_winner(self, position: tuple, color: tuple):
@@ -33,3 +35,8 @@ class Game:
             length = self.map.check_winner(position[0], position[1], direction, color, 1)
             if length >= 5:
                 return color
+
+    def add_move_in_stat(self, color, position):
+        if len(self.moves) == 14:
+            self.moves.pop(0)
+        self.moves.append((color, position, self.chips_count))
