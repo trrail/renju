@@ -1,5 +1,5 @@
 import pygame
-from game import game
+from renju.game import game
 
 
 class Window:
@@ -10,6 +10,7 @@ class Window:
         self.bg_game_screen = pygame.image.load('resources/board.png')
         self.game = game.Game()
         self.winner_color = None
+        self.bot_level = None
 
     def start(self) -> None:
         pygame.init()
@@ -24,16 +25,19 @@ class Window:
 
     def open_menu(self) -> None:
         self.reset_settings()
-        self.print_text("Renju", (18, 25), 70)
-        self.print_text("P - 2 players", (10, self.screen_size[1] / 2 + 30), 34)
-        self.print_text("B - bot", (10, self.screen_size[1] / 2), 34)
-        self.print_text("T - high score", (10, self.screen_size[1] / 2 + 60), 34)
+        self.print_text("renju", (18, 25), 70)
+        self.print_text("P - 2 players",
+                        (10, self.screen_size[1] / 2 + 30), 34)
+        self.print_text("B - bot",
+                        (10, self.screen_size[1] / 2), 34)
+        self.print_text("T - high score",
+                        (10, self.screen_size[1] / 2 + 60), 34)
         if pygame.key.get_pressed()[pygame.K_p]:
             self.game.prepare_game(2, 0)
             self.current_condition = self.game_window
         if pygame.key.get_pressed()[pygame.K_b]:
             self.game.prepare_game(1, 1)
-            self.current_condition = self.game_window
+            self.current_condition = self.choose_bot_level_screen
         if pygame.key.get_pressed()[pygame.K_t]:
             self.current_condition = self.high_score_table_screen
 
@@ -46,6 +50,7 @@ class Window:
         self.reset_settings()
 
     def game_window(self) -> None:
+        self.reset_settings()
         self.prepare_game_screen()
         self.print_moves()
         self.update_screen()
@@ -54,28 +59,36 @@ class Window:
             self.current_condition = self.open_menu
         mouse_pos = pygame.mouse.get_pos()
         mouse_is_pressed = pygame.mouse.get_pressed(3)[0]
-        pos = self.game.take_pos()
+        pos = self.game.take_pos(self.bot_level)
         if mouse_is_pressed:
             if pos is None and self.mouse_click_is_correct(mouse_pos):
-                self.winner_color = self.game.make_move(self.define_position(mouse_pos))
+                self.winner_color \
+                    = self.game.make_move(self.define_position(mouse_pos))
         if pos is not None:
             self.winner_color = self.game.make_move(pos)
+            pygame.time.wait(100)
         if self.winner_color is not None or self.game.chips_count == 225:
             self.current_condition = self.game_over
 
     def game_over(self) -> None:
         self.reset_settings()
         if self.winner_color is not None:
-            self.print_text("is Winner", (self.screen_size[0] // 2 - 40, self.screen_size[1] // 2 - 10), 34)
+            self.print_text("is Winner", (self.screen_size[0] // 2 - 40,
+                                          self.screen_size[1] // 2 - 10), 34)
             pygame.draw.circle(self.screen, self.winner_color,
-                               (self.screen_size[0] // 2 - 70, self.screen_size[1] // 2), 20)
+                               (self.screen_size[0] // 2 - 70,
+                                self.screen_size[1] // 2), 20)
         elif self.winner_color is None:
-            self.print_text("Draw", (self.screen_size[0] // 2 - 40, self.screen_size[1] // 2 - 10), 34)
-        self.print_text("M - menu", (10, self.screen_size[1] - 40), 34)
+            self.print_text("Draw",
+                            (self.screen_size[0] // 2 - 40,
+                             self.screen_size[1] // 2 - 10), 34)
+        self.print_text("M - menu",
+                        (10, self.screen_size[1] - 40), 34)
         if pygame.key.get_pressed()[pygame.K_m]:
             self.winner_color = None
             self.current_condition = self.open_menu
-        self.print_text("T - high score", (150, self.screen_size[1] - 40), 34)
+        self.print_text("T - high score",
+                        (150, self.screen_size[1] - 40), 34)
         if pygame.key.get_pressed()[pygame.K_t]:
             self.winner_color = None
             self.current_condition = self.high_score_table_screen
@@ -86,6 +99,28 @@ class Window:
         if pygame.key.get_pressed()[pygame.K_m]:
             self.current_condition = self.open_menu
         self.print_high_score_table()
+
+    def choose_bot_level_screen(self) -> None:
+        self.reset_settings()
+        self.print_text("Выберите сложность бота",
+                        (self.screen_size[0] / 2 - 195,
+                         self.screen_size[1] / 2 - 50), 45)
+        self.print_text("M - menu",
+                        (10, self.screen_size[1] - 40), 34)
+        self.print_text("H - сложный",
+                        (self.screen_size[0] / 2 - 160,
+                         self.screen_size[1] / 2), 34)
+        self.print_text("E - лёгкий",
+                        (self.screen_size[0] / 2 + 30,
+                         self.screen_size[1] / 2), 34)
+        if pygame.key.get_pressed()[pygame.K_m]:
+            self.current_condition = self.open_menu
+        if pygame.key.get_pressed()[pygame.K_h]:
+            self.bot_level = 1
+            self.current_condition = self.game_window
+        if pygame.key.get_pressed()[pygame.K_e]:
+            self.bot_level = 0
+            self.current_condition = self.game_window
 
     def reset_settings(self) -> None:
         surface = pygame.Surface(self.screen_size)
@@ -98,7 +133,8 @@ class Window:
         surface.fill((128, 128, 128))
         self.screen.blit(surface, (420, 0))
 
-    def print_text(self, message: str, position: tuple, font: int) -> None:
+    def print_text(self, message: str,
+                   position: tuple, font: int) -> None:
         text_stile = pygame.font.Font(None, font)
         text = text_stile.render(message, True, (255, 255, 255))
         self.screen.blit(text, position)
@@ -124,7 +160,8 @@ class Window:
     @staticmethod
     def mouse_click_is_correct(mouse_position: tuple) -> bool:
         # Checking, that mouse on game board
-        if 25 <= mouse_position[0] <= 395 and 25 <= mouse_position[1] <= 395:
+        if 25 <= mouse_position[0] <= 395 \
+                and 25 <= mouse_position[1] <= 395:
             return True
         return False
 
@@ -134,7 +171,8 @@ class Window:
         y_pos = 10
         for move in self.game.moves:
             pygame.draw.circle(self.screen, move[0], (457, y_pos + 6), 10)
-            self.print_text('поставил(-ла) в клетку (' + str(move[1][0]) + ', ' + str(move[1][1]) + ')',
+            self.print_text('поставил(-ла) в клетку (' +
+                            str(move[1][0]) + ', ' + str(move[1][1]) + ')',
                             (x_pos, y_pos), 23)
             self.print_text(str(move[2]) + '.', (425, y_pos), 23)
             y_pos += 30
@@ -143,7 +181,8 @@ class Window:
         x_pos = self.screen_size[0] / 2 - 80
         y_pos = self.screen_size[1] / 2
         statistic = self.game.get_statistic()
-        self.print_text('Игроки' + '  ' * 4 + 'Победы', (x_pos - 50, y_pos - 50), 40)
+        self.print_text('Игроки' + '  ' * 4 + 'Победы',
+                        (x_pos - 50, y_pos - 50), 40)
         for key in statistic.keys():
             color = (0, 0, 0) if key == '(0, 0, 0)' else (255, 255, 255)
             pygame.draw.circle(self.screen, color, (x_pos, y_pos + 10), 20)

@@ -11,12 +11,25 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8f8e42c6-8112-49e2-8c52-f68944093634" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/GAME/statistic.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/high_score_table.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pyproject.toml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/renju/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/renju/__main__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/renju/game/bot.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/renju/game/const.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/renju/game/statistic.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/Renju.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/Renju.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/game/game.py" beforeDir="false" afterPath="$PROJECT_DIR$/game/game.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/game/map.py" beforeDir="false" afterPath="$PROJECT_DIR$/game/map.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gui/window.py" beforeDir="false" afterPath="$PROJECT_DIR$/gui/window.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GAME/statistic.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/game/bot.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/game/const.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/game/game.py" beforeDir="false" afterPath="$PROJECT_DIR$/renju/game/game.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/game/map.py" beforeDir="false" afterPath="$PROJECT_DIR$/renju/game/map.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/game/player.py" beforeDir="false" afterPath="$PROJECT_DIR$/renju/game/player.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gui/chip.py" beforeDir="false" afterPath="$PROJECT_DIR$/renju/gui/chip.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gui/window.py" beforeDir="false" afterPath="$PROJECT_DIR$/renju/gui/window.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/high_score_table.txt" beforeDir="false" afterPath="$PROJECT_DIR$/high_score_table.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -49,6 +62,9 @@
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\glmes\PycharmProjects\Renju\renju" />
+      <recent name="C:\Users\glmes\PycharmProjects\Renju\Renju" />
+      <recent name="C:\Users\glmes\PycharmProjects\Renju\game" />
       <recent name="C:\Users\glmes\OneDrive\Документы\GitHub\Renju\resources" />
     </key>
   </component>
@@ -65,7 +81,7 @@
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/main.py" />
+      <option name="SCRIPT_NAME" value="C:\Users\glmes\PycharmProjects\Renju\game\main.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -80,6 +96,7 @@
       </list>
     </recent_temporary>
   </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="SvnConfiguration">
     <configuration />
   </component>
@@ -109,22 +126,30 @@
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
   </component>
   <component name="WindowStateProjectService">
-    <state width="1345" height="227" key="GridCell.Tab.0.bottom" timestamp="1605194773432">
-      <screen x="0" y="0" width="1366" height="738" />
+    <state x="546" y="232" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1605629319037">
+      <screen x="0" y="0" width="1600" height="860" />
+    </state>
+    <state x="546" y="232" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1600.860@0.0.1600.860" timestamp="1605629319037" />
+    <state width="1579" height="154" key="GridCell.Tab.0.bottom" timestamp="1605629422249">
+      <screen x="0" y="0" width="1600" height="860" />
     </state>
     <state width="1345" height="227" key="GridCell.Tab.0.bottom/0.0.1366.738@0.0.1366.738" timestamp="1605194773432" />
-    <state width="1345" height="227" key="GridCell.Tab.0.center" timestamp="1605194773432">
-      <screen x="0" y="0" width="1366" height="738" />
+    <state width="1579" height="154" key="GridCell.Tab.0.bottom/0.0.1600.860@0.0.1600.860" timestamp="1605629422249" />
+    <state width="1579" height="154" key="GridCell.Tab.0.center" timestamp="1605629422249">
+      <screen x="0" y="0" width="1600" height="860" />
     </state>
     <state width="1345" height="227" key="GridCell.Tab.0.center/0.0.1366.738@0.0.1366.738" timestamp="1605194773432" />
-    <state width="1345" height="227" key="GridCell.Tab.0.left" timestamp="1605194773432">
-      <screen x="0" y="0" width="1366" height="738" />
+    <state width="1579" height="154" key="GridCell.Tab.0.center/0.0.1600.860@0.0.1600.860" timestamp="1605629422249" />
+    <state width="1579" height="154" key="GridCell.Tab.0.left" timestamp="1605629422249">
+      <screen x="0" y="0" width="1600" height="860" />
     </state>
     <state width="1345" height="227" key="GridCell.Tab.0.left/0.0.1366.738@0.0.1366.738" timestamp="1605194773432" />
-    <state width="1345" height="227" key="GridCell.Tab.0.right" timestamp="1605194773432">
-      <screen x="0" y="0" width="1366" height="738" />
+    <state width="1579" height="154" key="GridCell.Tab.0.left/0.0.1600.860@0.0.1600.860" timestamp="1605629422249" />
+    <state width="1579" height="154" key="GridCell.Tab.0.right" timestamp="1605629422249">
+      <screen x="0" y="0" width="1600" height="860" />
     </state>
     <state width="1345" height="227" key="GridCell.Tab.0.right/0.0.1366.738@0.0.1366.738" timestamp="1605194773432" />
+    <state width="1579" height="154" key="GridCell.Tab.0.right/0.0.1600.860@0.0.1600.860" timestamp="1605629422249" />
     <state width="1345" height="227" key="GridCell.Tab.1.bottom" timestamp="1605194773432">
       <screen x="0" y="0" width="1366" height="738" />
     </state>

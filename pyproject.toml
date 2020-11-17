@@ -1,0 +1,10 @@
+[tool.coverage.run]
+source = ["Renju"]
+omit = ["*/__main__.py", "renjuu/view/*", "venv/*", "setup.py", "./pytest_cache/*"]
+
+[tool.coverage.report]
+show_missing = true
+skip_covered = true
+skip_empty = true
+sort = "-Miss"
+fail_under = 75

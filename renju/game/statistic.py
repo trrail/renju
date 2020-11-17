@@ -18,14 +18,12 @@ class Statistic:
                     if len(str) == 2:
                         self.high_score_table.update({(str[0]): int(str[1])})
             f.close()
-            print(self.high_score_table)
 
     def update_player(self, player_color: tuple) -> None:
         if not self.high_score_table.keys().__contains__(str(player_color)):
             self.high_score_table.update({str(player_color): 0})
         value = self.high_score_table.get(str(player_color))
         self.high_score_table.update({str(player_color): value + 1})
-        print(self.high_score_table)
         self.write_in_file()
 
     def write_in_file(self):

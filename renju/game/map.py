@@ -1,4 +1,5 @@
-from gui import chip
+from renju.gui import chip
+from renju.game import const
 
 
 class Map:
@@ -7,6 +8,7 @@ class Map:
         self.width = 15
         self.height = 15
         self.prepare_map()
+        self.free_point_list = []
 
     def put_chip(self, color: tuple, position: tuple) -> None:
         # Добавляет новую фишку
@@ -20,12 +22,14 @@ class Map:
 
     def get_condition(self, x: int, y: int) -> bool:
         condition = x < 0 or \
-                y < 0 or \
-                y >= self.height or \
-                x >= self.width
+                    y < 0 or \
+                    y >= self.height or \
+                    x >= self.width
         return condition
 
-    def check_winner(self, x: int, y: int, direction: tuple, color: tuple, length: int) -> int:
+    def check_winner(self, x: int, y: int,
+                     direction: tuple,
+                     color: tuple, length: int) -> int:
         x1_dir = direction[0]
         y1_dir = direction[1]
         x2_dir = -direction[0]
@@ -48,9 +52,36 @@ class Map:
             return True
         return False
 
+    def reset_free_point_list(self, position):
+        for direction in const.point_around_directions:
+            x_dir = position[0] + direction[0]
+            y_dir = position[1] + direction[1]
+            if 0 <= x_dir <= 14 \
+                    and 0 <= y_dir <= 14 \
+                    and self.map[x_dir][y_dir] is None:
+                self.delete_point_from_list((x_dir, y_dir))
+                self.free_point_list.append((x_dir, y_dir))
+        self.delete_point_from_list(position)
+
+    def delete_point_from_list(self, point: tuple):
+        try:
+            self.free_point_list.remove(point)
+        except ValueError:
+            pass
+
     @staticmethod
-    def _increment_coordinates(length, x: int, y: int, direction: tuple) -> tuple:
+    def _increment_coordinates(length, x: int, y: int,
+                               direction: tuple) -> tuple:
         length += 1
         x += direction[0]
         y += direction[1]
         return length, x, y
+
+    @staticmethod
+    def check_game_rule(color: tuple, winner_size: list) -> bool:
+        if color == (0, 0, 0):
+            if winner_size[0] > 5:
+                return False
+            if winner_size[0] > 3 and winner_size[1] > 3:
+                return False
+        return True
