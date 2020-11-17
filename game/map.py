@@ -32,13 +32,13 @@ class Map:
         y2_dir = -direction[1]
         inverse_dir = (-direction[0], -direction[1])
         while not self.get_condition(x + x1_dir, y + y1_dir) and \
-                self.map[x + x1_dir][y + y1_dir] is not None \
-                and self.map[x + x1_dir][y + y1_dir].color == color:
+                self.map[x + x1_dir][y + y1_dir] is not None and \
+                self.map[x + x1_dir][y + y1_dir].color == color:
             length, x1_dir, y1_dir = self._increment_coordinates(
                 length, x1_dir, y1_dir, direction)
         while not self.get_condition(x + x2_dir, y + y2_dir) and \
-                self.map[x + x2_dir][y + y2_dir] is not None \
-                and self.map[x + x2_dir][y + y2_dir].color == color:
+                self.map[x + x2_dir][y + y2_dir] is not None and \
+                self.map[x + x2_dir][y + y2_dir].color == color:
             length, x2_dir, y2_dir = self._increment_coordinates(
                 length, x2_dir, y2_dir, inverse_dir)
         return length

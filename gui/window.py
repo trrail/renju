@@ -8,7 +8,7 @@ class Window:
         self.screen_size = (700, 470)
         self.screen = pygame.display.set_mode(self.screen_size)
         self.bg_game_screen = pygame.image.load('resources/board.png')
-        self.game = None
+        self.game = game.Game()
         self.winner_color = None
 
     def start(self) -> None:
@@ -27,11 +27,19 @@ class Window:
         self.print_text("Renju", (18, 25), 70)
         self.print_text("P - 2 players", (10, self.screen_size[1] / 2 + 30), 34)
         self.print_text("B - bot", (10, self.screen_size[1] / 2), 34)
+        self.print_text("T - high score", (10, self.screen_size[1] / 2 + 60), 34)
         if pygame.key.get_pressed()[pygame.K_p]:
-            self.game = game.Game(False)
+            self.game.prepare_game(2, 0)
             self.current_condition = self.game_window
         if pygame.key.get_pressed()[pygame.K_b]:
-            self.game = game.Game(True)
+            self.game.prepare_game(1, 1)
+            self.current_condition = self.game_window
+        if pygame.key.get_pressed()[pygame.K_t]:
+            self.current_condition = self.high_score_table_screen
+
+        # Это пробный режим для личного использования)
+        if pygame.key.get_pressed()[pygame.K_f]:
+            self.game.prepare_game(0, 2)
             self.current_condition = self.game_window
 
     def select_player_menu(self) -> None:
@@ -67,13 +75,24 @@ class Window:
         if pygame.key.get_pressed()[pygame.K_m]:
             self.winner_color = None
             self.current_condition = self.open_menu
+        self.print_text("T - high score", (150, self.screen_size[1] - 40), 34)
+        if pygame.key.get_pressed()[pygame.K_t]:
+            self.winner_color = None
+            self.current_condition = self.high_score_table_screen
+
+    def high_score_table_screen(self) -> None:
+        self.reset_settings()
+        self.print_text("M - menu", (10, self.screen_size[1] - 40), 34)
+        if pygame.key.get_pressed()[pygame.K_m]:
+            self.current_condition = self.open_menu
+        self.print_high_score_table()
 
     def reset_settings(self) -> None:
         surface = pygame.Surface(self.screen_size)
         surface.fill((255, 165, 0))
         self.screen.blit(surface, (0, 0))
 
-    def prepare_game_screen(self):
+    def prepare_game_screen(self) -> None:
         self.screen.blit(self.bg_game_screen, (0, 0))
         surface = pygame.Surface((280, 420))
         surface.fill((128, 128, 128))
@@ -85,6 +104,7 @@ class Window:
         self.screen.blit(text, position)
 
     def update_screen(self) -> None:
+        # Re-draw game map with new chips
         for x in range(self.game.map.width):
             for y in range(self.game.map.height):
                 if self.game.map.map[x][y]:
@@ -103,11 +123,13 @@ class Window:
 
     @staticmethod
     def mouse_click_is_correct(mouse_position: tuple) -> bool:
+        # Checking, that mouse on game board
         if 25 <= mouse_position[0] <= 395 and 25 <= mouse_position[1] <= 395:
             return True
         return False
 
     def print_moves(self) -> None:
+        # Print log
         x_pos = 475
         y_pos = 10
         for move in self.game.moves:
@@ -117,3 +139,13 @@ class Window:
             self.print_text(str(move[2]) + '.', (425, y_pos), 23)
             y_pos += 30
 
+    def print_high_score_table(self):
+        x_pos = self.screen_size[0] / 2 - 80
+        y_pos = self.screen_size[1] / 2
+        statistic = self.game.get_statistic()
+        self.print_text('Игроки' + '  ' * 4 + 'Победы', (x_pos - 50, y_pos - 50), 40)
+        for key in statistic.keys():
+            color = (0, 0, 0) if key == '(0, 0, 0)' else (255, 255, 255)
+            pygame.draw.circle(self.screen, color, (x_pos, y_pos + 10), 20)
+            self.print_text(str(statistic.get(key)), (x_pos + 150, y_pos), 40)
+            y_pos += 50
