@@ -52,7 +52,7 @@ class Map:
             return True
         return False
 
-    def reset_free_point_list(self, position):
+    def reset_free_point_list(self, position: tuple):
         for direction in const.point_around_directions:
             x_dir = position[0] + direction[0]
             y_dir = position[1] + direction[1]

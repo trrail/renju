@@ -7,7 +7,7 @@ class Window:
         self.current_condition = self.open_menu
         self.screen_size = (700, 470)
         self.screen = pygame.display.set_mode(self.screen_size)
-        self.bg_game_screen = pygame.image.load('resources/board.png')
+        self.bg_game_screen = pygame.image.load('board.png')
         self.game = game.Game()
         self.winner_color = None
         self.bot_level = None
