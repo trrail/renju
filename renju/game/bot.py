@@ -26,9 +26,6 @@ class Bot(player.Player):
                 white_sizes.sort(reverse=True)
                 if white_sizes[0] > current_color_position[0]:
                     current_color_position = (white_sizes[0], point)
-            if current_color_position[0] >= 4\
-                    and (255, 255, 255) != self.color:
-                return point
             black_sizes = []
             for direction in const.directions:
                 black_sizes.append(game_map.check_winner(point[0],
@@ -42,7 +39,10 @@ class Bot(player.Player):
                 black_sizes.sort(reverse=True)
                 if black_sizes[0] > another_color_position[0]:
                     another_color_position = (black_sizes[0], point)
-            if another_color_position[0] >= 4 and (0, 0, 0) != self.color:
-                return point
+        if current_color_position[0] > another_color_position[0]:
+            return current_color_position[1]
+        elif current_color_position[0] < another_color_position[0] \
+                and another_color_position[0] >= 4:
+            return another_color_position[1]
         return another_color_position[1] if self.color == (0, 0, 0) \
             else current_color_position[1]

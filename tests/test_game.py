@@ -1,6 +1,5 @@
 import pytest
 import os
-import unittest
 from renju.game.game import Game
 from renju.game.player import Player
 from renju.game.bot import Bot
@@ -31,6 +30,7 @@ def test_update_game(game):
     assert game.current_player == 1
     assert game.chips_count > 0
     assert len(game.moves) == 1
+    os.remove("high_score_table.txt")
 
 
 def test_add_move_in_stat(game):
@@ -39,11 +39,13 @@ def test_add_move_in_stat(game):
         game.add_move_in_stat((0, 0, 0), (n, i))
         n += 1
     assert game.moves[0][1] == (1, 1)
+    os.remove("high_score_table.txt")
 
 
 def test_make_move(game):
     game.prepare_game(2, 0)
     assert game.make_move((3, 0)) is None
+    os.remove("high_score_table.txt")
 
 
 def test_take_pos(game):
@@ -51,6 +53,7 @@ def test_take_pos(game):
     assert game.take_pos(1) is None
     game.update_game((0, 0, 0), (1, 1))
     assert game.take_pos(1) is not None
+    os.remove("high_score_table.txt")
 
 
 def test_reset_game(game):
@@ -61,7 +64,4 @@ def test_reset_game(game):
     assert game.chips_count == 0
     assert game.current_player == 0
     assert len(game.moves) == 0
-
-
-if __name__ == '__main__':
-    unittest.main()
+    os.remove("high_score_table.txt")
