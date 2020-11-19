@@ -7,7 +7,7 @@ class Window:
         self.current_condition = self.open_menu
         self.screen_size = (700, 470)
         self.screen = pygame.display.set_mode(self.screen_size)
-        self.bg_game_screen = pygame.image.load('board.png')
+        self.bg_game_screen = pygame.image.load('resources/board.png')
         self.game = game.Game()
         self.winner_color = None
         self.bot_level = None
@@ -144,7 +144,10 @@ class Window:
         for x in range(self.game.map.width):
             for y in range(self.game.map.height):
                 if self.game.map.map[x][y]:
-                    self.game.map.map[x][y].draw_chip(self.screen)
+                    chip = self.game.map.map[x][y]
+                    self.draw_chip(chip.color,
+                                   chip.position,
+                                   chip.radius, self.screen)
 
     @staticmethod
     def define_position(mouse_pos: tuple) -> tuple:
@@ -188,3 +191,10 @@ class Window:
             pygame.draw.circle(self.screen, color, (x_pos, y_pos + 10), 20)
             self.print_text(str(statistic.get(key)), (x_pos + 150, y_pos), 40)
             y_pos += 50
+
+    @staticmethod
+    def draw_chip(color: tuple,
+                  position: tuple,
+                  radius: float,
+                  surface: pygame.Surface) -> None:
+        pygame.draw.circle(surface, color, position, radius)

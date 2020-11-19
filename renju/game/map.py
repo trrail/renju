@@ -1,5 +1,4 @@
-from renju.gui import chip
-from renju.game import const
+from renju.game import const, chip
 
 
 class Map:
