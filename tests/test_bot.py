@@ -1,11 +1,11 @@
 import pytest
-from renju.game.bot import Bot
+from renju.game.bot import HardModeBot
 from renju.game.map import Map
 
 
 @pytest.fixture()
 def bot():
-    bot = Bot((255, 255, 255))
+    bot = HardModeBot((255, 255, 255))
     return bot
 
 
@@ -17,9 +17,9 @@ def test_random(bot):
 
 
 def test_hard_bot(bot):
-    map = Map()
-    map.prepare_map()
-    for y in range(4):
-        map.put_chip((0, 0, 0), (0, y))
-        map.reset_free_point_list((0, y))
-    assert bot.make_move(map, 1) == (0, 4)
+    game_map = Map()
+    game_map.prepare_map()
+    for y in range(1, 4):
+        game_map.put_chip((0, 0, 0), (y, y))
+        game_map.reset_free_point_list((y, y))
+    assert bot.make_move(game_map, 2) == (0, 0)

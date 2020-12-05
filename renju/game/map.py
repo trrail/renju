@@ -11,7 +11,7 @@ class Map:
 
     def put_chip(self, color: tuple, position: tuple) -> None:
         # Добавляет новую фишку
-        self.map[position[0]][position[1]] = chip.Chip(color, position)
+        self.map[position[0]][position[1]] = chip.Chip(color)
 
     def prepare_map(self) -> None:
         for x in range(15):
