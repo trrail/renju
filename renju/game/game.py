@@ -12,14 +12,15 @@ class Game:
         self.winner_size = []
         self.statistic = statistic.Statistic()
         self.color = Color()
-        self.timer = 12000
+        self.timer = self.set_timer()
 
     def take_pos(self) -> tuple:
         # Вернёт:
         # - None, если Player
         # - Tuple, если Bot
         self.update_timer(make_move=False)
-        return self.players[self.current_player].make_move(self.map, len(self.players))
+        return self.players[self.current_player]\
+            .make_move(self.map, len(self.players))
 
     def make_move(self, position: tuple):
         if self.map.point_is_free(position):
@@ -38,7 +39,8 @@ class Game:
                                                           color,
                                                           1))
         self.winner_size.sort(reverse=True)
-        if self.winner_size[0] == 5 and self.map.check_game_rule(color, self.winner_size):
+        if self.winner_size[0] == 5 \
+                and self.map.check_game_rule(color, self.winner_size):
             self.statistic.update_player(color)
             return color
 
@@ -55,13 +57,19 @@ class Game:
         self.map.reset_free_point_list(position)
         self.update_timer(make_move=True)
 
-    def prepare_game(self, players_count: int, bot_counts: int, bot_level: int) -> None:
+    def prepare_game(self, players_count: int,
+                     bot_counts: int,
+                     bot_hard_mode: bool) -> None:
         self.reset_game()
         for gamer in range(players_count):
-            self.players.append(player.Player(self.color.next_color(players_count + bot_counts)))
+            self.players.append(player.Player(
+                self.color.next_color(players_count + bot_counts)))
         for bot_player in range(bot_counts):
-            self.players.append(bot.EasyModeBot(self.color.next_color(players_count + bot_counts)) if bot_level == 0
-                                else bot.HardModeBot(self.color.next_color(players_count + bot_counts)))
+            self.players.append(bot.HardModeBot(
+                self.color.next_color(players_count + bot_counts))
+                                if bot_hard_mode
+                                else bot.EasyModeBot(
+                self.color.next_color(players_count + bot_counts)))
 
     def reset_game(self) -> None:
         self.players.clear()
@@ -89,9 +97,13 @@ class Game:
 
     def update_timer(self, make_move: bool) -> None:
         if make_move:
-            self.timer = 12000
+            self.timer = self.set_timer()
         elif self.timer == 0:
-            self.timer = 12000
+            self.timer = self.set_timer()
             self.update_current_player_pointer()
         else:
             self.timer -= 0.5
+
+    @staticmethod
+    def set_timer() -> int:
+        return 12000

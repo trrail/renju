@@ -44,7 +44,11 @@ def test_check_winner_diagonal(board):
         n += 1
     length = []
     for direction in directions:
-        length.append(board.check_winner(n - 1, 4, direction, (255, 255, 255), 1))
+        length.append(board.check_winner(n - 1,
+                                         4,
+                                         direction,
+                                         (255, 255, 255),
+                                         1))
     length.sort(reverse=True)
     assert length[0] == 5
 
@@ -68,4 +72,3 @@ def test_check_game_rule(board):
     assert board.check_game_rule((0, 0, 0), [4, 5]) is False
     assert board.check_game_rule((255, 255, 255), [4, 4]) is True
     assert board.check_game_rule((0, 0, 0), [3, 3]) is True
-

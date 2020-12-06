@@ -10,7 +10,7 @@ class Window:
         self.bg_game_screen = pygame.image.load('resources/board.png')
         self.game = game.Game()
         self.winner_color = None
-        self.bot_level = 1
+        self.bot_level = False
         self.chip_radius = 10
         self.players_count = 0
         self.bots_count = 0
@@ -46,37 +46,47 @@ class Window:
         type_of_player = "игроков" if self.pointer == 0 else "ботов"
 
         # Кнопка меню
-        self.print_text("M - menu", (10, self.screen_size[1] - 100), 34)
+        self.print_text("M - menu",
+                        (self.screen_size[0] / 2 - 65,
+                         self.screen_size[1] - 35), 34)
         if pygame.key.get_pressed()[pygame.K_m]:
             self.winner_color = None
             self.current_condition = self.open_menu
 
         # Текст
-        self.print_text("Выберите кол-во" + type_of_player
-                        + ". Макс. кол-во: " + str(9 - self.players_count - self.bots_count),
-                        (10, self.screen_size[1] / 2 + 30), 34)
+        self.print_text("Выберите кол-во" + type_of_player +
+                        ". Макс. кол-во: " +
+                        str(9 - self.players_count - self.bots_count),
+                        (self.screen_size[0] / 2 - 240, 100), 34)
 
-        # Текст
-        self.print_text("Текущее колличество " + type_of_player + ": " +
-                        str(self.bots_count if self.pointer == 1 else self.players_count),
-                        (10, self.screen_size[1] / 2 + 80), 34)
+        # Выбранное количество
+        self.print_text(str(self.bots_count
+                            if self.pointer == 1
+                            else self.players_count),
+                        (self.screen_size[0] / 2 - 35, 160), 100)
 
         # Кнопка продолжения
-        self.print_text("N - next", (10, self.screen_size[1] - 100), 34)
+        self.print_text("N - next",
+                        (self.screen_size[0] - 100,
+                         self.screen_size[1] - 35),
+                        34)
         if pygame.key.get_pressed()[pygame.K_n]:
             pygame.time.wait(100)
-            if self.pointer == 1 and self.players_count + self.bots_count > 1:
+            if self.pointer == 1 and \
+                    self.players_count + self.bots_count > 1:
                 self.pointer = 0
                 if self.bots_count > 0:
                     self.current_condition = self.choose_bot_level_screen
                 else:
-                    self.game.prepare_game(self.players_count, self.bots_count, self.bot_level)
+                    self.game.prepare_game(self.players_count,
+                                           self.bots_count,
+                                           self.bot_level)
                     self.current_condition = self.game_window
             elif self.pointer != 1:
                 self.pointer += 1
 
         # Кнопка отката
-        self.print_text("R - return", (10, self.screen_size[1] - 100), 34)
+        self.print_text("R - return", (10, self.screen_size[1] - 35), 34)
         if pygame.key.get_pressed()[pygame.K_r]:
             pygame.time.wait(100)
             if self.pointer == 0:
@@ -85,8 +95,9 @@ class Window:
                 self.pointer -= 1
 
         # Кнопка прибавления
-        self.print_text("+ - рибавить",
-                        (10, self.screen_size[1] / 2 + 30), 34)
+        self.print_text("+",
+                        (self.screen_size[0] / 2 + 40,
+                         self.screen_size[1] / 2), 80)
         if pygame.key.get_pressed()[pygame.K_KP_PLUS]:
             pygame.time.wait(200)
             if self.players_count + self.bots_count != 9:
@@ -96,8 +107,9 @@ class Window:
                     self.bots_count += 1
 
         # Кнопка уменьшения
-        self.print_text("- - убавить",
-                        (10, self.screen_size[1] / 2 - 10), 34)
+        self.print_text("-",
+                        (self.screen_size[0] / 2 - 100,
+                         self.screen_size[1] / 2), 80)
         if pygame.key.get_pressed()[pygame.K_KP_MINUS]:
             pygame.time.wait(100)
             if self.pointer == 0 and self.players_count > 0:
@@ -172,12 +184,16 @@ class Window:
         if pygame.key.get_pressed()[pygame.K_m]:
             self.current_condition = self.open_menu
         if pygame.key.get_pressed()[pygame.K_h]:
-            self.bot_level = 1
-            self.game.prepare_game(self.players_count, self.bots_count, self.bot_level)
+            self.bot_level = True
+            self.game.prepare_game(self.players_count,
+                                   self.bots_count,
+                                   self.bot_level)
             self.current_condition = self.game_window
         if pygame.key.get_pressed()[pygame.K_e]:
-            self.bot_level = 0
-            self.game.prepare_game(self.players_count, self.bots_count, self.bot_level)
+            self.bot_level = False
+            self.game.prepare_game(self.players_count,
+                                   self.bots_count,
+                                   self.bot_level)
             self.current_condition = self.game_window
 
     def reset_settings(self) -> None:
@@ -190,9 +206,13 @@ class Window:
         surface = pygame.Surface((280, 420))
         surface.fill((128, 128, 128))
         self.screen.blit(surface, (420, 0))
-        self.print_text("Время на ход: " + self.game.get_timer() + " " * 3 + "Ходит: ",
-                        (self.screen_size[0] / 2 - 60, self.screen_size[1] - 35), 32)
-        self.draw_chip(self.game.get_current_player_color(), (23, 16.5), 15, self.screen)
+        self.print_text("Время на ход: " +
+                        self.game.get_timer() +
+                        "    Ходит: ",
+                        (self.screen_size[0] / 2 - 60,
+                         self.screen_size[1] - 35), 32)
+        self.draw_chip(self.game.get_current_player_color(),
+                       (23, 16.5), 15, self.screen)
 
     def print_text(self, message: str,
                    position: tuple, font: int) -> None:
@@ -249,7 +269,9 @@ class Window:
                         (x_pos - 50, y_pos - 50), 40)
         for key in statistic.keys():
             combo = key.split(", ")
-            color = (int(combo[0][1::]), int(combo[1]), int(combo[2][:len(combo[2]) - 1:]))
+            color = (int(combo[0][1::]),
+                     int(combo[1]),
+                     int(combo[2][:len(combo[2]) - 1:]))
             pygame.draw.circle(self.screen, color, (x_pos, y_pos + 10), 20)
             self.print_text(str(statistic.get(key)), (x_pos + 150, y_pos), 40)
             y_pos += 50

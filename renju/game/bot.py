@@ -17,12 +17,14 @@ class HardModeBot(EasyModeBot):
     def make_move(self, game_map: map.Map, bots_count: int) -> tuple:
         if len(game_map.free_point_list) == 0:
             return self.random()
-        current_color_more_effective_position = self.check_positions(self.color, game_map)
+        current_color_more_effective_position = \
+            self.check_positions(self.color, game_map)
 
         another_players_positions = []
         for i in range(bots_count-1):
             another_player_color = self.change_color(self.color)
-            another_players_positions.append(self.check_positions(another_player_color, game_map))
+            another_players_positions.append(
+                self.check_positions(another_player_color, game_map))
         for positions in another_players_positions:
             if current_color_more_effective_position[0] > positions[0]:
                 return current_color_more_effective_position[1]
