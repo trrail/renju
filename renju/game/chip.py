@@ -1,3 +1,2 @@
-class Chip:
-    def __init__(self, color: tuple):
-        self.color = color
+class Chip(tuple):
+    pass

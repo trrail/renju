@@ -7,7 +7,7 @@ from renju.game.statistic import Statistic
 def statistic():
     statistic = Statistic()
     os.remove("high_score_table.txt")
-    f = open("high_score_table.txt", 'w')
+    f = open("high_score_table.txt", "w")
     f.write("(0, 0, 0)\t3\n(255, 255, 255)\t2\n")
     f.close()
     statistic.download_score_table()

@@ -44,11 +44,8 @@ def test_check_winner_diagonal(board):
         n += 1
     length = []
     for direction in directions:
-        length.append(board.check_winner(n - 1,
-                                         4,
-                                         direction,
-                                         (255, 255, 255),
-                                         1))
+        length.append(board.check_winner(n - 1, 4, direction,
+                                         (255, 255, 255), 1))
     length.sort(reverse=True)
     assert length[0] == 5
 

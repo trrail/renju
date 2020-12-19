@@ -1,23 +1,23 @@
+import pathlib
+
+
 class Statistic:
+    HIGH_SCORE_FILE_NAME = "HIGH_SCORE_TABLE.txt"
+
     def __init__(self):
+        self.statistic_file = pathlib.Path(self.HIGH_SCORE_FILE_NAME)
         self.high_score_table = {}
-        self.download_score_table()
 
     def download_score_table(self) -> None:
-        try:
-            f = open('high_score_table.txt', 'r')
-        except FileNotFoundError:
-            f = open('high_score_table.txt', 'w')
-            f.close()
-        finally:
-            f = open('high_score_table.txt', 'r')
-            data = f.read().split('\n')
+        if not self.statistic_file.exists():
+            self.statistic_file.touch()
+        with open(self.statistic_file, "r") as file:
+            data = file.read().split("\n")
             if len(data) > 0:
                 for string in data:
-                    str = string.split('\t')
-                    if len(str) == 2:
-                        self.high_score_table.update({(str[0]): int(str[1])})
-            f.close()
+                    stat = string.split("\t")
+                    if len(stat) == 2:
+                        self.high_score_table.update({(stat[0]): int(stat[1])})
 
     def update_player(self, player_color: tuple) -> None:
         if not self.high_score_table.keys().__contains__(str(player_color)):
@@ -27,8 +27,8 @@ class Statistic:
         self.write_in_file()
 
     def write_in_file(self):
-        f = open('high_score_table.txt', 'w')
-        f.truncate()
-        for key in self.high_score_table.keys():
-            f.write(key + '\t' + str(self.high_score_table.get(key)) + '\n')
-        f.close()
+        with open(self.statistic_file, "w") as file:
+            file.truncate()
+            for key in self.high_score_table.keys():
+                file.write(key + "\t" +
+                           str(self.high_score_table.get(key)) + "\n")
