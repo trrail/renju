@@ -1,6 +1,8 @@
 import pytest
 from renju.game.map import Map
 from renju.game.const import directions
+from renju.game.vector import Vector
+from renju.game.chip import Chip
 
 
 @pytest.fixture()
@@ -22,9 +24,9 @@ def test_put_chip(board):
 
 
 def test_get_condition(board):
-    assert board.get_condition(-1, 1) is True
-    assert board.get_condition(12, 4) is False
-    assert board.get_condition(15, 0) is True
+    assert board.get_condition(Vector((-1, 1))) is True
+    assert board.get_condition(Vector((12, 4))) is False
+    assert board.get_condition(Vector((15, 0))) is True
 
 
 def test_check_winner(board):
@@ -32,7 +34,7 @@ def test_check_winner(board):
         board.put_chip((255, 255, 255), (1, i))
     length = []
     for direction in directions:
-        length.append(board.check_winner(1, 4, direction, (255, 255, 255), 1))
+        length.append(board.check_winner(Vector((1, 4)), Vector(direction), (255, 255, 255), 1))
     length.sort(reverse=True)
     assert length[0] == 5
 
@@ -44,7 +46,7 @@ def test_check_winner_diagonal(board):
         n += 1
     length = []
     for direction in directions:
-        length.append(board.check_winner(n - 1, 4, direction,
+        length.append(board.check_winner(Vector((n - 1, 4)), Vector(direction),
                                          (255, 255, 255), 1))
     length.sort(reverse=True)
     assert length[0] == 5

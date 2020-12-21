@@ -1,6 +1,6 @@
 from renju.game import const, chip
 from renju.game.vector import Vector
-
+from renju.game.chip import Chip
 
 class Map:
     MAP_SIZE = (15, 15)
@@ -31,7 +31,7 @@ class Map:
     def point_is_free(self, position: tuple) -> bool:
         if self.map[position[0]][position[1]] is None:
             return True
-
+        return False
     '''
         Определение выйграшных позиций.
         Возвращают длину максимальной комбинации

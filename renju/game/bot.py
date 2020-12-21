@@ -10,7 +10,7 @@ class EasyModeBot(player.Player):
         y = random.randint(0, len(game_map.map))
         return x, y
 
-    def make_move(self, game_map: map.Map, bots_counts: int):
+    def make_move(self, game_map: map.Map, bots_counts: int) -> tuple:
         return self.random(game_map)
 
 

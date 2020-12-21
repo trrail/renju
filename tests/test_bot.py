@@ -1,17 +1,19 @@
 import pytest
 from renju.game.bot import HardModeBot
 from renju.game.map import Map
+from renju.game.color import Color
 
 
 @pytest.fixture()
 def bot():
-    bot = HardModeBot((255, 255, 255))
+    bot = HardModeBot(Color.BLACK.value, None)
     return bot
 
 
 def test_random(bot):
-    x_bool = 0 <= bot.random()[0] <= 14
-    y_bool = 0 <= bot.random()[1] <= 14
+    game_map = Map()
+    x_bool = 0 <= bot.random(game_map)[0] <= 14
+    y_bool = 0 <= bot.random(game_map)[1] <= 14
     assert x_bool is True
     assert y_bool is True
 

@@ -1,8 +1,9 @@
 import pathlib
+import json
 
 
 class Statistic:
-    HIGH_SCORE_FILE_NAME = "HIGH_SCORE_TABLE.txt"
+    HIGH_SCORE_FILE_NAME = "HIGH_SCORE_TABLE.json"
 
     def __init__(self):
         self.statistic_file = pathlib.Path(self.HIGH_SCORE_FILE_NAME)
@@ -10,14 +11,9 @@ class Statistic:
 
     def download_score_table(self) -> None:
         if not self.statistic_file.exists():
-            self.statistic_file.touch()
+            self.write_in_file()
         with open(self.statistic_file, "r") as file:
-            data = file.read().split("\n")
-            if len(data) > 0:
-                for string in data:
-                    stat = string.split("\t")
-                    if len(stat) == 2:
-                        self.high_score_table.update({(stat[0]): int(stat[1])})
+            self.high_score_table = json.load(file)
 
     def update_player(self, player_color: tuple) -> None:
         if not self.high_score_table.keys().__contains__(str(player_color)):
@@ -28,7 +24,4 @@ class Statistic:
 
     def write_in_file(self):
         with open(self.statistic_file, "w") as file:
-            file.truncate()
-            for key in self.high_score_table.keys():
-                file.write(key + "\t" +
-                           str(self.high_score_table.get(key)) + "\n")
+            json.dump(self.high_score_table, file)

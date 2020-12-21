@@ -2,7 +2,7 @@ import time
 
 
 class Timer:
-    DELAY = 10
+    DELAY = 120
 
     def __init__(self):
         self.start_time = time.time()
