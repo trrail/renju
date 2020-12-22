@@ -13,7 +13,7 @@ def bot():
 def test_random(bot):
     game_map = Map()
     x_bool = 0 <= bot.random(game_map)[0] <= 14
-    y_bool = 0 <= bot.random(game_map)[1] <= 14
+    y_bool = 0 <= bot.random(game_map)[1] <= 15
     assert x_bool is True
     assert y_bool is True
 
