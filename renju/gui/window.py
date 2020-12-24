@@ -38,8 +38,7 @@ class Window:
         self.current_condition = self.open_menu
         self.screen_size = (700, 470)
         self.screen = pygame.display.set_mode(self.screen_size)
-        self.bg_game_screen = pygame.image.load(os.path.join('resources',
-                                                             'board.png'))
+        self.bg_game_screen = self.load_board()
         self.winner_color = None
         self.hard_mode_bot = False
         self.chip_radius = 10
@@ -305,3 +304,8 @@ class Window:
             )
 
         return players
+
+    @staticmethod
+    def load_board():
+        os.chdir('..')
+        return pygame.image.load('resources/board.png')
