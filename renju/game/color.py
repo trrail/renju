@@ -1,4 +1,6 @@
 from enum import Enum
+from colormap import rgb2hex
+from colormap import hex2rgb
 
 
 class Color(Enum):
@@ -11,3 +13,11 @@ class Color(Enum):
     PURPLE = (128, 0, 128)
     PINK = (255, 20, 147)
     BROWN = (139, 69, 19)
+
+    @staticmethod
+    def toRGB(rgb_color: tuple):
+        return rgb2hex(rgb_color[0], rgb_color[1], rgb_color[2])
+
+    @staticmethod
+    def fromRGB(hex_color: str):
+        return hex2rgb(hex_color)

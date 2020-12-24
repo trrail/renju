@@ -1,6 +1,7 @@
 import pygame
-from renju.game import game, player, bot
+from renju.game import game, player, bot, const
 from renju.game.color import Color
+import os
 
 
 def mouse_click_is_correct(mouse_position: tuple) -> bool:
@@ -11,15 +12,24 @@ def mouse_click_is_correct(mouse_position: tuple) -> bool:
 
 
 def define_position() -> tuple:
+    # (3)[0] - это обозначение ЛКМ в pygame
     if pygame.mouse.get_pressed(3)[0]:
         mouse_pos = pygame.mouse.get_pos()
         if mouse_click_is_correct(mouse_pos):
-            x_whole = (mouse_pos[0] - 9) // 25 - 1
-            x_residue = (mouse_pos[0] - 9) % 25
-            y_whole = (mouse_pos[1] - 9) // 25 - 1
-            y_residue = (mouse_pos[1] - 9) % 25
-            x_pos = x_whole if x_residue < 12 else x_whole + 1
-            y_pos = y_whole if y_residue < 12 else y_whole + 1
+            x_whole = (mouse_pos[0] -
+                       const.indent_from_the_edge) // const\
+                .size_of_one_cell - 1
+            x_residue = (mouse_pos[0] -
+                         const.indent_from_the_edge) % const.size_of_one_cell
+            y_whole = (mouse_pos[1] -
+                       const.indent_from_the_edge) // const\
+                .size_of_one_cell - 1
+            y_residue = (mouse_pos[1] -
+                         const.indent_from_the_edge) % const.size_of_one_cell
+            x_pos = x_whole if x_residue < (const.size_of_one_cell // 2) \
+                else x_whole + 1
+            y_pos = y_whole if y_residue < (const.size_of_one_cell // 2) \
+                else y_whole + 1
             return x_pos, y_pos
 
 
@@ -28,7 +38,8 @@ class Window:
         self.current_condition = self.open_menu
         self.screen_size = (700, 470)
         self.screen = pygame.display.set_mode(self.screen_size)
-        self.bg_game_screen = pygame.image.load("resources/board.png")
+        self.bg_game_screen = pygame.image.load(os.path.join('resources',
+                                                             'board.png'))
         self.winner_color = None
         self.hard_mode_bot = False
         self.chip_radius = 10
@@ -269,12 +280,7 @@ class Window:
         self.print_text("Игроки" + "  " * 4 +
                         "Победы", (x_pos - 50, y_pos - 50), 40)
         for key in statistic.keys():
-            combo = key.split(", ")
-            color = (
-                int(combo[0][1::]),
-                int(combo[1]),
-                int(combo[2][:len(combo[2]) - 1:]),
-            )
+            color = Color.fromRGB(key)
             pygame.draw.circle(self.screen, color, (x_pos, y_pos + 10), 20)
             self.print_text(str(statistic.get(key)), (x_pos + 150, y_pos), 40)
             y_pos += 50

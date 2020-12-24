@@ -6,8 +6,8 @@ from renju.game.vector import Vector
 class EasyModeBot(player.Player):
     @staticmethod
     def random(game_map: map.Map) -> tuple:
-        x = random.randint(0, len(game_map.map))
-        y = random.randint(0, len(game_map.map))
+        x = random.randint(0, len(game_map.map) - 1)
+        y = random.randint(0, len(game_map.map) - 1)
         return x, y
 
     def make_move(self, game_map: map.Map, bots_counts: int) -> tuple:

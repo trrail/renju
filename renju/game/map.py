@@ -1,6 +1,6 @@
 from renju.game import const, chip
 from renju.game.vector import Vector
-from renju.game.chip import Chip
+
 
 class Map:
     MAP_SIZE = (15, 15)

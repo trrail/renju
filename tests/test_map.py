@@ -2,7 +2,6 @@ import pytest
 from renju.game.map import Map
 from renju.game.const import directions
 from renju.game.vector import Vector
-from renju.game.chip import Chip
 
 
 @pytest.fixture()
@@ -34,7 +33,9 @@ def test_check_winner(board):
         board.put_chip((255, 255, 255), (1, i))
     length = []
     for direction in directions:
-        length.append(board.check_winner(Vector((1, 4)), Vector(direction), (255, 255, 255), 1))
+        length.append(board.check_winner(Vector((1, 4)),
+                                         Vector(direction),
+                                         (255, 255, 255), 1))
     length.sort(reverse=True)
     assert length[0] == 5
 

@@ -1,5 +1,6 @@
 import pathlib
 import json
+from renju.game.color import Color
 
 
 class Statistic:
@@ -16,10 +17,10 @@ class Statistic:
             self.high_score_table = json.load(file)
 
     def update_player(self, player_color: tuple) -> None:
-        if not self.high_score_table.keys().__contains__(str(player_color)):
-            self.high_score_table.update({str(player_color): 0})
-        value = self.high_score_table.get(str(player_color))
-        self.high_score_table.update({str(player_color): value + 1})
+        if not Color.toRGB(player_color) in self.high_score_table.keys():
+            self.high_score_table.update({Color.toRGB(player_color): 0})
+        value = self.high_score_table.get(Color.toRGB(player_color))
+        self.high_score_table.update({Color.toRGB(player_color): value + 1})
         self.write_in_file()
 
     def write_in_file(self):

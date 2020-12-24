@@ -18,7 +18,8 @@ def move():
     return 12, 4
 
 
-def prepare_players(user_count: int, bot_count: int, bot_is_hard: bool) -> list:
+def prepare_players(user_count: int, bot_count: int,
+                    bot_is_hard: bool) -> list:
     players = []
     colors = list(Color)
     for gamer in range(user_count):
